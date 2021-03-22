@@ -10,8 +10,9 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  http: ^0.13.0
+  http: '>0.11.0 <0.13.0'
   stream_channel: '>=2.1.0 <3.0.0'
+  eventsource: ^0.2.3
 
 dev_dependencies:
   pedantic: ^1.11.0

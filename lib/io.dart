@@ -7,14 +7,16 @@ import 'package:sse_client/src/sse_client.dart';
 class IOSseClient extends SseClient {
   IOSseClient(Stream stream) : super(stream: stream);
 
-  factory IOSseClient.connect(Uri uri) {
+  factory IOSseClient.connect(Uri uri, {Map<String, String>? headers}) {
     late StreamController<String?> incomingController;
     final client = Client();
 
     incomingController = StreamController<String?>.broadcast(onListen: () {
       var request = Request('GET', uri)
         ..headers['Accept'] = 'text/event-stream';
-
+      if (headers != null) {
+        request.headers.addAll(headers);
+      }
       client.send(request).then((response) {
         if (response.statusCode == 200) {
           response.stream.transform(EventSourceTransformer()).listen((event) {
